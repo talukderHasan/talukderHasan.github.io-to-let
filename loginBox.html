@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Input From</title>
+	<link href="css/loginbox.css" type="text/css" rel="stylesheet"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+
+<body>
+<section id="container">
+
+<form action="#"> 
+<div ng-app="myApp" ng-controller="myCtrl" class="headTitle"> 
+	<h3>To-Let</h3> 
+	
+	<a id="signUp" href="#">Create Account</a> 
+</div>
+
+<div ng-app="myApp" ng-controller="myCtrl" class="loginBox">
+
+  <strong>  Email Or Username</strong> <br />
+	<input type="email" placeholder="Input your email"/> <br /> 
+
+   <strong> Password</strong> <br />
+	 <input type="password" placeholder="Password"/> <br /> 
+
+
+	 <input  type="submit" id="loginButton" value="Login"/>
+	 <input  type="reset" id="forgetPass" value="Forget Password"/>
+</div>
+
+<footer> 
+
+<h3>To-Let</h3>
+
+</footer>
+
+<marquee> Join us for visit and get our service. <em>To-Let</em>  </marquee>
+
+</form>
+
+ </section>
+
+ 
+
+
+
+ 
+
+
+<script>
+//otp
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+  $http({
+    method : "POST",
+    url : "https://to-let-app.herokuapp.com/api/auth/generateOTP"
+  }).then(function mySuccess(response) {
+      $scope.loginButton = response.data;
+    }, function myError(response) {
+      $scope.loginButton = response.statusText;
+  });
+});
+//signup
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+  $http({
+    method : "POST",
+    url : "https://to-let-app.herokuapp.com/api/auth/signup"
+  }).then(function mySuccess(response) {
+      $scope.signUp = response.data;
+    }, function myError(response) {
+      $scope.signUp = response.statusText;
+  });
+});
+//logged
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+  $http({
+    method : "GET",
+    url : "https://to-let-app.herokuapp.com/api/auth/users"
+  }).then(function mySuccess(response) {
+      $scope.loginButton = response.data;
+    }, function myError(response) {
+      $scope.loginButton = response.statusText;
+  });
+});
+
+//forget pass
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+  $http({
+    method : "POST",
+    url : "https://to-let-app.herokuapp.com/api/auth/forgetPassChange"
+  }).then(function mySuccess(response) {
+      $scope.forgetPass = response.data;
+    }, function myError(response) {
+      $scope.forgetPass = response.statusText;
+  });
+});
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
